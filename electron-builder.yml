@@ -1,0 +1,12 @@
+appId: com.hyperwave.sansserif
+productName: Sans Serif
+copyright: Copyright © 2020 Евгений Мандельштам
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

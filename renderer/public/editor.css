@@ -1,0 +1,89 @@
+* {
+    outline: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+select {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+#editor {
+    overflow-y: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+#editor .toolbar {
+    -webkit-user-select: none;
+    transition: .19s;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    background-color: white;
+    width: fit-content;
+    max-width: max-content;
+    height: fit-content;
+    border-radius: 5px;
+}
+
+#editor .toolbar .toolbar__item {
+    transition: .2s;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: larger;
+    flex: 11 1;
+    min-width: 40px;
+    max-width: fit-content;
+    min-height: 40px;
+    /* height: 40px; */
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    text-align: center;
+    padding: 5px;
+    line-height: 2.5rem;
+    align-items: center;
+    border-radius: 5px;
+    background-color: transparent;
+    justify-content: center;
+}
+
+#editor .toolbar .toolbar__item.baseitem {
+    font-family: 'Georgia Pro', Georgia, 'Times New Roman', Times, serif;
+}
+
+#editor .toolbar .toolbar__item.dropdown {
+    font-weight: normal;
+    font-size: medium;
+    flex-direction: row;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+#editor select {
+    transition: .2s;
+}
+
+#editor .block {
+    margin-bottom: 0.8rem;
+    /* font-family: 'Inter', Helvetica, Arial, sans-serif; */
+    padding: 0.4rem;
+    border-radius: 0.3rem;
+}
+
+#editor .block:focus-within {
+    transition: 0.2s;
+    background-color: #EDEDED;
+}
+
+#editor h1, h2, h3 {
+    font-family: 'Georgia Pro', Georgia, 'Times New Roman', Times, serif;
+    margin-bottom : 0.3rem;
+    margin-block-start: 0em;
+}
+
+#editor .paragraph {
+    margin-bottom: 0rem;
+}
