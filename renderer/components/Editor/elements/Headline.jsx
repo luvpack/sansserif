@@ -4,12 +4,12 @@ import Entity from './Entity'
 class Headline extends Entity {
   render () {
     const element = React.createElement(`h${this.props.level ?? 2}`, {
-            ref: this.focusableRef,
+            ref: this.textRef,
             // children: this.props.text,
             contentEditable: true,
             suppressContentEditableWarning: true,
       })
-    return <div ref={this.wrapperRef} className='block__wrapper'>
+    return <div ref={this.focusableRef} tabIndex={this.props.index} className='block__wrapper'>
         {element}
       </div>
   }

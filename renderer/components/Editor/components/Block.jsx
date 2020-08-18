@@ -9,9 +9,13 @@ class Block extends React.Component {
   selectionUtils = new SelectionUtils()
 
   onKeyDown = async (event) => {
-    // event.stopPropagation()
-    if (event.key === 'Backspace' && event.currentTarget.textContent.length === 0) { 
-      await this.props.handleRemove(this.props.index) 
+    if (event.key === 'Backspace') { 
+      if (this.props.type === 'image' && window.getSelection().anchorNode.textContent.length < 0) {
+        event.preventDefault()
+      }
+      if (event.currentTarget.textContent.length === 0 && this.props.type !== 'image') {
+        await this.props.handleRemove(this.props.index)
+      }
     }
 
     if (event.key === 'Enter') {
@@ -36,9 +40,10 @@ class Block extends React.Component {
                   ref: this.childRef,
                   // onKeyUp: this.onKeyUp,
                   handlePaste: this.props.onPaste,
+                  index: this.props.index,
                   onKeyDown: this.onKeyDown,
                   onFocus: (ev) => this.props.onFocus(ev, this.props.index),
-                  text: data.text ?? 'Enter some text', level: data.level ?? null})}
+                  text: data.text ?? undefined, level: data.level ?? null, src: data.src ?? null})}
       </div>
     )
   }

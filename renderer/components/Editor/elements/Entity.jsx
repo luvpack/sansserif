@@ -3,8 +3,10 @@ import React from 'react'
 class Entity extends React.Component {
     options = {
         pasteWithoutTags: false,
-        userPaste: false,
-        allowedTags: ['SPAN', 'B', 'I', 'A'] // TODO: create allowed tags when user paste
+        userPaste: true,
+        allowedTags: ['SPAN', 'B', 'I', 'A'], // TODO: create allowed tags when user paste,
+        withText: true,
+        selectable: true
     }
 
     constructor (props) {
@@ -12,6 +14,7 @@ class Entity extends React.Component {
 
         this.wrapperRef = React.createRef()
         this.focusableRef = React.createRef()
+        this.textRef = React.createRef()
     }
 
     componentDidMount () {
@@ -19,7 +22,10 @@ class Entity extends React.Component {
         this.focusableRef.current.focus()
         this.focusableRef.current.addEventListener('keydown', this.props.onKeyDown)
         this.focusableRef.current.addEventListener('paste', this.props.handlePaste)
-        this.focusableRef.current.innerHTML = this.props.text
+        
+        if (this.options.withText) {
+            this.textRef.current.innerHTML = this.props.text
+        }
     }
   
     componentWillUnmount () {
@@ -32,8 +38,8 @@ class Entity extends React.Component {
 
 
     render () {
-        return <div ref={this.wrapperRef} className='block__wrapper'>
-            <div ref={this.focusableRef} contentEditable></div>
+        return <div ref={this.focusableRef} tabIndex={this.props.index} className='block__wrapper'>
+            <div ref={this.textRef} contentEditable></div>
         </div>
     }
 }

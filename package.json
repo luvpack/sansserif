@@ -2,7 +2,7 @@
   "private": true,
   "name": "sansserif",
   "description": "Modern text editor with aesthetic design",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Eugene Mandelshtam <mandelstam@yandex.ru>",
   "main": "app/background.js",
   "license": "Apache 2.0",

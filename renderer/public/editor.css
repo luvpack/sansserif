@@ -67,7 +67,7 @@ select {
 }
 
 #editor .block {
-    margin-bottom: 0.8rem;
+    margin-bottom: 15px;
     /* font-family: 'Inter', Helvetica, Arial, sans-serif; */
     padding: 0.4rem;
     border-radius: 0.3rem;
@@ -82,6 +82,18 @@ select {
     font-family: 'Georgia Pro', Georgia, 'Times New Roman', Times, serif;
     margin-bottom : 0.3rem;
     margin-block-start: 0em;
+}
+
+#editor .block .block__wrapper.image {
+    text-align: center;
+    image-rendering: pixelated;
+    color: #C8C8C8;
+    max-width: 100%;
+}
+
+#editor .block__wrapper.image img {
+    width: 100%;
+    border-radius: 0.3rem;
 }
 
 #editor .paragraph {
