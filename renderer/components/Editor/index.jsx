@@ -139,17 +139,16 @@ class Editor extends React.Component {
         ))
     }
 
-    handleInput = async (event) => {
-      console.log(this.state.blockMap[this.state.selectedBlock])
-      event.stopPropagation()
+    handleInput = async (inputText) => {
+      // event.stopPropagation()
       const copyBlockMap = Array.from(this.state.blockMap)
       const currentBlockIndex = this.state.selectedBlock
 
       if (!copyBlockMap[currentBlockIndex]) {
         return
       }
-
-      copyBlockMap[currentBlockIndex].data.text = event.target.innerHTML
+      copyBlockMap[currentBlockIndex].data.text = inputText
+      //copyBlockMap[currentBlockIndex].data.text = event.target.innerHTML
       // console.log(copyBlockMap[currentBlockIndex].data.text)
       await this.setState({blockMap: copyBlockMap})
     }
@@ -192,6 +191,16 @@ class Editor extends React.Component {
               const wrap = document.createElement('div')
               wrap.appendChild(child.cloneNode(true))
               document.execCommand('insertHTML', false, wrap.innerHTML)
+            } else if (child.tagName === 'IMG') {
+              console.log(child.src)
+              this.insertBlock(this.state.selectedBlock + 1, {
+                type: 'image',
+                id: uuidv4(),
+                data: {
+                  text: '',
+                  src: child.src
+                }
+              }) 
             }
           }
         }

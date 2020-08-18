@@ -17,10 +17,14 @@ class Entity extends React.Component {
         this.textRef = React.createRef()
     }
 
+    keyDownHandler = (event) => {
+        this.props.onKeyDown(event, this.textRef.current.innerHTML)
+    }
+
     componentDidMount () {
-        this.focusableRef.current.addEventListener('focus', this.props.onFocus)
+        this.focusableRef.current.addEventListener('click', this.props.onFocus)
         this.focusableRef.current.focus()
-        this.focusableRef.current.addEventListener('keydown', this.props.onKeyDown)
+        this.focusableRef.current.addEventListener('keydown', this.keyDownHandler)
         this.focusableRef.current.addEventListener('paste', this.props.handlePaste)
         
         if (this.options.withText) {
@@ -31,14 +35,14 @@ class Entity extends React.Component {
     componentWillUnmount () {
         //this.focusableRef.current.blur()
         this.focusableRef.current.removeEventListener('paste', this.props.handlePaste)
-        this.focusableRef.current.removeEventListener('keydown', this.props.onKeyDown)
-        this.focusableRef.current.removeEventListener('focus', this.props.onFocus)
+        this.focusableRef.current.removeEventListener('keydown', this.keyDownHandler)
+        this.focusableRef.current.removeEventListener('click', this.props.onFocus)
  
     }
 
 
     render () {
-        return <div ref={this.focusableRef} tabIndex={this.props.index} className='block__wrapper'>
+        return <div ref={this.focusableRef} className='block__wrapper'>
             <div ref={this.textRef} contentEditable></div>
         </div>
     }

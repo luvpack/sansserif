@@ -9,7 +9,7 @@ class Headline extends Entity {
             contentEditable: true,
             suppressContentEditableWarning: true,
       })
-    return <div ref={this.focusableRef} tabIndex={this.props.index} className='block__wrapper'>
+    return <div ref={this.focusableRef} className='block__wrapper'>
         {element}
       </div>
   }

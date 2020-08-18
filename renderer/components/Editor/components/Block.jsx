@@ -8,9 +8,10 @@ class Block extends React.Component {
 
   selectionUtils = new SelectionUtils()
 
-  onKeyDown = async (event) => {
+  onKeyDown = async (event, inputText) => {
     if (event.key === 'Backspace') { 
-      if (this.props.type === 'image' && window.getSelection().anchorNode.textContent.length < 0) {
+      console.log(window.getSelection())
+      if (this.props.type === 'image' && !window.getSelection().anchorNode.textContent) {
         event.preventDefault()
       }
       if (event.currentTarget.textContent.length === 0 && this.props.type !== 'image') {
@@ -28,7 +29,7 @@ class Block extends React.Component {
 
     if (event.key.length < 2) {
       event.stopPropagation
-      await this.props.handleInput(event)
+      await this.props.handleInput(inputText)
     }
   } 
 
