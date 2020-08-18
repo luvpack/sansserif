@@ -1,5 +1,5 @@
 import React from 'react'
-
+import SelectionUtils from '../lib/selection'
 class Entity extends React.Component {
     options = {
         pasteWithoutTags: false,
@@ -8,6 +8,8 @@ class Entity extends React.Component {
         withText: true,
         selectable: true
     }
+
+    selectionUtils = new SelectionUtils()
 
     constructor (props) {
         super(props)
@@ -18,6 +20,13 @@ class Entity extends React.Component {
     }
 
     keyDownHandler = (event) => {
+        const type = Object.getPrototypeOf(this).constructor.name
+        const selection = window.getSelection()
+        if (type === 'Image') {
+            console.log(this.textRef.current.textContent, this.textRef.current.textContent.length, 1)
+            selection.setPosition(this.textRef.current, 1)
+        }
+
         this.props.onKeyDown(event, this.textRef.current.innerHTML)
     }
 

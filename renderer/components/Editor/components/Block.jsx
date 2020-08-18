@@ -10,8 +10,9 @@ class Block extends React.Component {
 
   onKeyDown = async (event, inputText) => {
     if (event.key === 'Backspace') { 
-      console.log(window.getSelection())
-      if (this.props.type === 'image' && !window.getSelection().anchorNode.textContent) {
+      const selection = window.getSelection()
+
+      if (this.props.type === 'image' && !selection.anchorNode.textContent) {
         event.preventDefault()
       }
       if (event.currentTarget.textContent.length === 0 && this.props.type !== 'image') {

@@ -23,9 +23,9 @@ class Toolbar extends React.Component {
 
     orientationToggle = async (leftCoord, rightCoord, contentRect) => {
       if (leftCoord < contentRect.left && this.state.rightOriented) {
-        await this.setState({rightOriented: false})
-      } else if (rightCoord + 150 > contentRect.right && !this.state.rightOriented) {
-        await this.setState({rightOriented: true})
+        await this.setState({rightOriented: false}, () => console.log('left'))
+      } else if (rightCoord > contentRect.right && !this.state.rightOriented) {
+        await this.setState({rightOriented: true}, () => console.log('right'))
       }
       //console.log(`${leftCoord} < ${contentRect.left} = ${leftCoord < contentRect.left}`,`${rightCoord} > ${contentRect.right} = ${rightCoord > contentRect.right}`)
     }
@@ -36,36 +36,23 @@ class Toolbar extends React.Component {
           const selectionRect = this.selectionUtils.rect
           const targetRect = selection.anchorNode.parentElement.getBoundingClientRect()
           const toolbarRect = this.toolbarRef.current.getBoundingClientRect()
-  
-          const newCoords = {
-            x: selectionRect.x - (toolbarRect.left < 0 ? this.state.left : toolbarRect.left),
-            y: selectionRect.y +
-              selectionRect.height,
-          };
-          
-          if (selectionRect.width) {
-            newCoords.x += Math.floor(selectionRect.width / 2)
+
+          if (toolbarRect.right > targetRect.right) {
+            console.log('right')
+          } else if (toolbarRect.left < targetRect.left) {
+            console.log('left')
           }
 
-          const realLeftCoord = newCoords.x - 463 / 2;
-          const realRightCoord = newCoords.x + 463 / 2;
-
-          await this.orientationToggle(realLeftCoord, realRightCoord, targetRect)
-
-          console.log(this.state.top)
-          //  y: selectionRect.y +
-          //selectionRect.height + toolbarRect.height 
-  
+          console.log([toolbarRect.x, targetRect.left], [toolbarRect.right, targetRect.right])
+          console.log((selectionRect.x + toolbarRect.width) < (targetRect.right + toolbarRect.width))
           this.setState((prevState) => (
             {
               visible: true, 
-              top: Math.floor(newCoords.y),
-              left: newCoords.x, // (prevState.left + rect.x) < toolbarRect.width - 300? rect.x : prevState.left,
-             // right: selectionRect.right + toolbarRect.width
-              // bottom: rect.bottom - rect.height
-
+              top:  (window.scrollY + selectionRect.bottom),
+              left: selectionRect.x,
+              rightOriented: (selectionRect.x + toolbarRect.width) < (targetRect.right + toolbarRect.width)
             }
-          ))
+          ), () => console.log('newstate', this.state.rightOriented))
   
         } else {
           this.setState({visible: false})
@@ -90,7 +77,7 @@ class Toolbar extends React.Component {
           className="toolbar"
           style={{display: this.state.visible ? 'flex' : 'none',
             left: this.state.left, top: this.state.top,
-            transform: this.state.rightOriented ? `translateX(-60%)` : `translateX(-53px)`,
+            transform: !this.state.rightOriented ? `translateX(-75%)` : `translateX(-53px)`,
             //, bottom: this.state.bottom
           }}>
             {

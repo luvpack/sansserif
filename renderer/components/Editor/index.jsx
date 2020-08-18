@@ -57,7 +57,7 @@ class Editor extends React.Component {
             type: 'image',
             id: uuidv4(),
             data: {
-              text: 'Lorem ipsum dolor sit amet',
+              text: 'You can New Image Component',
               src: 'https://picsum.photos/720/720?grayscale'
             }
           }
