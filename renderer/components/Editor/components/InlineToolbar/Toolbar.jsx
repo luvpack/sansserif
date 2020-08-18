@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SelectionUtils from '../../selection'
+import SelectionUtils from '../../lib/selection'
 import itemsTypes from './components/itemsTypes'
 
 class Toolbar extends React.Component {

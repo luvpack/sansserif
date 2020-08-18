@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectionUtils from '../selection'
+import SelectionUtils from '../lib/selection'
 
 class Block extends React.Component {
 

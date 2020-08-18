@@ -3,13 +3,13 @@ import {v4 as uuidv4} from 'uuid'
 import {remote} from 'electron'
 import electronLocalShortcut from 'electron-localshortcut'
 
-import SelectionUtils from './selection'
-import fileManager from './fileManager'
+import SelectionUtils from './lib/selection'
+import fileManager from './lib/fileManager'
 
-import {Headline, Paragraph} from './elements/index'
+import {Headline, Paragraph, Image} from './elements'
 import {Block, Blocks} from './components/index'
 
-import SFInlineToolbar from './components/InlineToolbar/index'
+import SFInlineToolbar from './components/InlineToolbar'
 
 const _remote = remote || null
 
@@ -37,7 +37,7 @@ class Editor extends React.Component {
             data: {
               text: 'Lorem Ipsum Dolor Sit Amet',
               level: 1
-            }
+            },
           },
           {
             type: 'paragraph',
@@ -65,6 +65,10 @@ class Editor extends React.Component {
       headline: {
         title: 'headline',
         class: Headline
+      },
+      image: {
+        title: 'image',
+        class: Image
       }
     }
 
@@ -153,9 +157,34 @@ class Editor extends React.Component {
       await this.setState({selectedBlock: index})
     }
 
+    getSelectedBlockInstance = () => {
+      return this.types[this.state.blockMap[this.state.selectedBlock].type].class
+    }
+
     handlePaste = async (event, index) => {
       event.preventDefault()
-      console.log('paste', event.clipboardData.getData('text/html'))
+
+      const clipboard = event.clipboardData || window.clipboardData
+      const clipboardData = clipboard.getData('text/html')
+
+      const clipboardDataElement = document.createElement('div')
+
+      clipboardDataElement.innerHTML = clipboardData
+      
+      if (clipboardDataElement.childElementCount > 0) {
+        const children = clipboardDataElement.children
+        console.log(children)
+        for (let child of children) {
+          child.removeAttribute('style')
+
+          if (child.tagName !== 'IMG' && child.tagName !== 'META') {
+            console.log(this.getSelectedBlockInstance())
+            const wrap = document.createElement('div')
+            wrap.appendChild(child.cloneNode(true))
+            document.execCommand('insertHTML', false, wrap.innerHTML)
+          }
+        }
+      }
     }
 
     renderBlocks = (blockMap) => {

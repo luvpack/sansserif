@@ -1,6 +1,12 @@
 import React from 'react'
 
 class Entity extends React.Component {
+    options = {
+        pasteWithoutTags: false,
+        userPaste: false,
+        allowedTags: ['SPAN', 'B', 'I', 'A'] // TODO: create allowed tags when user paste
+    }
+
     constructor (props) {
         super(props)
 

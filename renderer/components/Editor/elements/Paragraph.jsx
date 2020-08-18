@@ -1,6 +1,4 @@
-import React from 'react'
 import Entity from './Entity'
-
 
 class Paragraph extends Entity {
 }
