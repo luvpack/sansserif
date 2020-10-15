@@ -7,6 +7,8 @@ So, I tried to recreate that atmosphere of sophistication and modern elegance, w
 
 *Of course, my product is not perfect, it has a number of drawbacks, but I am sure that together with the community we can make this tool better and more convenient.*
 
+![](https://github.com/luvpack/sansserif/blob/master/resources/screens.png)
+
 ### Application hotkeys
 To save the file press `CMD + S` To open the file, press `CMD + O`
 
