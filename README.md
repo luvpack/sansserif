@@ -6,6 +6,7 @@
 - [ ] Status indicator (file saved or not)
 - [ ] Create video component
 - [ ] Need to organize the codebase
+- [ ] Fix Image component
 
 ### FAQ
 To save the file press CMD + S
